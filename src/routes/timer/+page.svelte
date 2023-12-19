@@ -4,7 +4,7 @@
 
     // variables to hold total time and remaining time
     let totalSeconds = 0;
-    let secondsremaining = 0;
+    let secondsRemaining = 0;
     let timer; // reference to the timer interval
     let isTimerRunning = false;
 
@@ -37,16 +37,16 @@
     }
 }
 
+// function to reset timer
+function resetTimer(){
+    clearInterval(timer);
+    isTimerRunning = false;
+    secondsRemaining = 0;
+}
+
 // lifecycle hook - runs when component is mounted
 onMount(() => {
-    const interval = setInterval(() => {
-        if (isTimerRunning && secondsRemaining > 0) {
-            secondsRemaining--;
-        } else {
-            clearInterval(interval)
-            isTimerRunning = false;
-        }
-    }, 1000)
+    
 });
 
 onDestroy(() => {
@@ -54,7 +54,7 @@ onDestroy(() => {
 });
 
 // reactive declaration to update timer
-$: formattedTime = `${Math.floor(secondsRemaining / 60)}:${secondsRemaining % 60}`;
+$: formattedTime = `${Math.floor(secondsRemaining / 60)} min ${secondsRemaining % 60} sec`;
 
 
 </script>
@@ -76,13 +76,23 @@ $: formattedTime = `${Math.floor(secondsRemaining / 60)}:${secondsRemaining % 60
     <input type="number" id = "seconds" bind:value={secondsInput} min = "0" max = "59"/>
 </div>
 
-<!-- Button to start/pause the timer -->
+<!-- Play/Pause button -->
 <button on:click={startPauseTimer}>
+    {#if isTimerRunning}
+    &#10074;&#10074;
+    {:else}
     &#x25B6;
+    {/if}
 </button>
+
+    <!-- Reset button -->
+    <button on:click={resetTimer}>
+        &#x21BA;
+    </button>
+
 
 <!-- Displaying the timer (remaining time) -->
 <div>
     <!-- Displaying the timer (remaining time) -->
-<h1>Timer: {formattedTime}</h1>
+    <p>Time left: {formattedTime}</p>
 </div>
