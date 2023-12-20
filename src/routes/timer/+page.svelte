@@ -14,10 +14,10 @@
 
     // Function to start timer
     function startPauseTimer() {
-        if (!isTimerRunning) { 
-        // calculate total time in seconds
-        totalSeconds = minutesInput * 60 + secondsInput;
-        secondsRemaining = totalSeconds; // initializing remaining time = total time
+        const inputSeconds = secondsInput + minutesInput * 60; // total inputted seconds
+        if (!isTimerRunning && inputSeconds > 0) { 
+        totalSeconds = inputSeconds;
+        secondsRemaining = totalSeconds; // remaining time = total time
 
        // function for timer logic
        function handleTimer() {
@@ -42,6 +42,9 @@ function resetTimer(){
     clearInterval(timer);
     isTimerRunning = false;
     secondsRemaining = 0;
+    // Reset user input = to 0
+    minutesInput = 0;
+    secondsInput = 0;
 }
 
 // lifecycle hook - runs when component is mounted
@@ -60,7 +63,30 @@ $: formattedTime = `${Math.floor(secondsRemaining / 60)} min ${secondsRemaining 
 </script>
 
 <style>
+body {
+    text-align: center; 
+}
 
+h1, p {
+    text-align: center; 
+}
+
+label, input {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px; 
+    margin-top: 20px; 
+}
+
+.button-container button {
+
+}
 </style>
 
 <h1>Start a timer!</h1>
@@ -76,6 +102,7 @@ $: formattedTime = `${Math.floor(secondsRemaining / 60)} min ${secondsRemaining 
     <input type="number" id = "seconds" bind:value={secondsInput} min = "0" max = "59"/>
 </div>
 
+<div class="button-container">
 <!-- Play/Pause button -->
 <button on:click={startPauseTimer}>
     {#if isTimerRunning}
@@ -89,10 +116,13 @@ $: formattedTime = `${Math.floor(secondsRemaining / 60)} min ${secondsRemaining 
     <button on:click={resetTimer}>
         &#x21BA;
     </button>
-
+</div>
 
 <!-- Displaying the timer (remaining time) -->
 <div>
-    <!-- Displaying the timer (remaining time) -->
-    <p>Time left: {formattedTime}</p>
+    {#if secondsRemaining === 0 && isTimerRunning}
+        <p>Time's up! Take a break.</p>
+    {:else}
+        <p>Time left: {formattedTime}</p>
+    {/if}
 </div>
