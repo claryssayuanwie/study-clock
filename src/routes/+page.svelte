@@ -4,18 +4,10 @@
     let totalStudyTime = 0;
 
     onMount (() => {
-        totalStudyTime = getTotalStudyTime();
+        const studyTime = localStorage.getItem('totalStudyTime');
+        totalStudyTime = studyTime ? parseInt(studyTime, 10) : 0;
     });
 
-    function getTotalStudyTime() {
-        const studyTime = localStorage.getItem('totalStudyTime');
-
-        if (studyTime) {
-            return parseInt(studyTime, 10);
-        } else {
-            return 0;
-        }
-    }
 </script>
 
 <h1>Hello!</h1>

@@ -2,6 +2,8 @@
     // import lifecycle hooks 
     import {onMount, onDestroy} from 'svelte';
 
+    export let totalStudyTime = 0; // Receive totalStudyTime as a prop
+
     // variables to hold total time and remaining time
     let totalSeconds = 0;
     let secondsRemaining = 0;
@@ -25,6 +27,7 @@
         secondsRemaining--; // decrements remaining time
         if (secondsRemaining === 0){
             clearInterval(timer);
+            totalStudyTime += elapsedSeconds; 
         }
 
         // store elapsed time in local storage

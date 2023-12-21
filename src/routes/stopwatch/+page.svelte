@@ -1,6 +1,8 @@
 <script>
     import {onMount, onDestroy} from 'svelte';
 
+    export let totalStudyTime = 0;
+
     let elapsedSeconds = 0;
     let stopwatch;
     let isRunning = false;
@@ -9,11 +11,13 @@
         if (isRunning) {
             clearInterval(stopwatch);
             isRunning = false;
+            totalStudyTime += elapsedSeconds;
+            localStorage.setItem('totalStudyTime', totalStudyTime);
     } else {
         stopwatch = setInterval(() => {
             elapsedSeconds++;
             }, 1000);
-            isRunning = !isRunning;
+            isRunning = true;
     }
 }
 
