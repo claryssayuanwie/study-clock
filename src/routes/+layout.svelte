@@ -28,7 +28,7 @@
 
         // instantiate timer & stopwatch with updated totalStudyTime prop
         timerComponent = new Timer({
-            terget: document.body,
+            target: document.body,
             props: {
                 totalStudyTime
             }

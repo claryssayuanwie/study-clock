@@ -4,7 +4,7 @@
     let totalStudyTime = 0;
 
     onMount (() => {
-        const studyTime = localStorage.getItem('totalStudyTime');
+        const studyTime = localStorage.getItem('totalStudyTime') + localStorage.getItem('elapsedTime');
         totalStudyTime = studyTime ? parseInt(studyTime, 10) : 0;
     });
 
