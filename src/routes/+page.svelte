@@ -1,14 +1,10 @@
 <script>
     import {onMount} from 'svelte';
-    import {totalStudyTime} from './routes/stores';
-
-    let timeSpentStudying = 0;
-
-    totalStudyTime.subscribe(value => {
-        timeSpentStudying  = value;
-    });
+    
+    let totalStudyTime = 0;
 
     onMount (() => {
+        totalStudyTime = getTotalStudyTime();
     });
 
     function getTotalStudyTime() {

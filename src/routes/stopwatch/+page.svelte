@@ -18,6 +18,12 @@
 }
 
 function resetStopwatch() {
+
+    const confirmation = confirm("Do you want to save your stopwatch data before resetting?");
+
+    if (confirmation) {
+    localStorage.setItem('stopwatchData', elapsedSeconds);
+    }
     clearInterval(stopwatch);
     elapsedSeconds = 0;
     isRunning = false;

@@ -2,9 +2,6 @@
     // import lifecycle hooks 
     import {onMount, onDestroy} from 'svelte';
 
-    // import writable store
-    import {totalStudyTime} from './routes/stores';
-
     // variables to hold total time and remaining time
     let totalSeconds = 0;
     let secondsRemaining = 0;
@@ -28,8 +25,6 @@
         secondsRemaining--; // decrements remaining time
         if (secondsRemaining === 0){
             clearInterval(timer);
-            // increment total study time by elapsed time
-            totalStudyTime.update(value => value + elapsedTime)
         }
 
         // store elapsed time in local storage
