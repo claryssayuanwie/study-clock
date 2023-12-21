@@ -68,9 +68,6 @@ function formattedElapsed(seconds){
     </div>
     
 <style>
-body {
-    text-align: center; 
-}
 
 h1, p {
     text-align: center; 
@@ -89,11 +86,5 @@ label, input {
     margin-top: 20px; 
 }
 
-.button-container button {
-
-}
-.button-container button {
-
-}
 </style>
 

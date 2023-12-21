@@ -2,6 +2,9 @@
     // import lifecycle hooks 
     import {onMount, onDestroy} from 'svelte';
 
+    // import writable store
+    import {totalStudyTime} from './routes/stores';
+
     // variables to hold total time and remaining time
     let totalSeconds = 0;
     let secondsRemaining = 0;
@@ -25,7 +28,12 @@
         secondsRemaining--; // decrements remaining time
         if (secondsRemaining === 0){
             clearInterval(timer);
+            // increment total study time by elapsed time
+            totalStudyTime.update(value => value + elapsedTime)
         }
+
+        // store elapsed time in local storage
+        localStorage.getItem('elapsedTime', totalSeconds - secondsRemaining);
        }
        // set timer
        timer = setInterval(handleTimer, 1000);
@@ -39,6 +47,16 @@
 
 // function to reset timer
 function resetTimer(){
+    const confirmation = confirm("Do you want to save your progress before resetting?");
+
+    if (confirmation) {
+        // save to local storage
+        localStorage.setItem('elapsedTime', totalSeconds - secondsRemaining);
+    } else {
+        // clear fron local storage
+        localStorage.removeItem('elapsedTime');
+    }
+
     clearInterval(timer);
     isTimerRunning = false;
     secondsRemaining = 0;
@@ -49,7 +67,18 @@ function resetTimer(){
 
 // lifecycle hook - runs when component is mounted
 onMount(() => {
-    
+    // get elapsed time from local storage on mount
+    const storedElapsedTime = localStorage.getItem('elapsedTime');
+    if (storedElapsedTime) {
+        const elapsedTime = parseInt(storedElapsedTime, 10);
+        secondsRemaining = totalSeconds - elapsedTime;
+        if (secondsRemaining <= 0) {
+            secondsRemaining = 0;
+            clearInterval(timer);
+        } else {
+            timer = setInterval(handleTimer, 1000);
+        }      
+    }
 });
 
 onDestroy(() => {
@@ -63,9 +92,6 @@ $: formattedTime = `${Math.floor(secondsRemaining / 60)} min ${secondsRemaining 
 </script>
 
 <style>
-body {
-    text-align: center; 
-}
 
 h1, p {
     text-align: center; 
@@ -84,9 +110,6 @@ label, input {
     margin-top: 20px; 
 }
 
-.button-container button {
-
-}
 </style>
 
 <h1>Start a timer!</h1>
