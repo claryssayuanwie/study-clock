@@ -6,9 +6,14 @@
     let goalMinutes = 0;
     let completed = false;
 
+    function calculateCompletion(time, goal) {
+        completed = time >= goal;
+    }
+
     function setGoal() {
         const totalGoalMinutes = goalHours * 60 + goalMinutes;
-        completed = totalStudyTime >= totalGoalMinutes;
+        localStorage.setItem('dailyStudyGoal', totalGoalMinutes);
+        calculateCompletion(totalStudyTime, totalGoalMinutes);
     }
 
     function formatStudyTime(seconds) {
