@@ -91,6 +91,7 @@ $: formattedTime = `${Math.floor(secondsRemaining / 60)} min ${secondsRemaining 
 
 <style>
 
+
 h1, p {
     text-align: center; 
 }

@@ -2,11 +2,14 @@
     import {onMount} from 'svelte';
     
     let totalStudyTime = 0;
+    let goalHours = 0;
+    let goalMinutes = 0;
+    let completed = false;
 
-    onMount (() => {
-        const studyTime = localStorage.getItem('totalStudyTime') + localStorage.getItem('elapsedTime');
-        totalStudyTime = studyTime ? parseInt(studyTime, 10) : 0;
-    });
+    function setGoal() {
+        const totalGoalMinutes = goalHours * 60 + goalMinutes;
+        completed = totalStudyTime >= totalGoalMinutes;
+    }
 
     function formatStudyTime(seconds) {
         const days = Math.floor(seconds / (3600 * 24))
@@ -21,16 +24,44 @@
 
         const timeArray = [formattedDays, formattedHours, formattedMinutes, formattedSeconds].filter(Boolean);
         return timeArray.join(', ');
-
-        return
     }
+
+    onMount (() => {
+        const studyTime = parseInt(localStorage.getItem('totalStudyTime') || '0', 10) + parseInt(localStorage.getItem('elapsedTime') || '0', 10);
+        totalStudyTime = studyTime;
+        setGoal();
+    });
 
 </script>
 
+<main>
 <h1>Hello!</h1>
-<p>Welcome to studyclock! Start a study session!
-    You can check your stats here.
-</p>
-<p> 
-    Total study time: {formatStudyTime(totalStudyTime)}
-</p>
+<p>Welcome to studyclock! Start a study session! </p>
+<p>Set your daily goal!</p>
+
+<!-- Input for hours and minutes -->
+<label for="hoursInput">Hours</label>
+<input type="number" id="hoursInput" bind:value={goalHours} min="0">
+
+<label for="minutesInput">Minutes</label>
+<input type="number" id="minutesInput" bind:value={goalMinutes} min="0" max="59">
+
+<!-- Button to update the daily goal -->
+<button on:click={setGoal}>Set Goal</button>
+
+{#if completed}
+<p>Great job! You completed your daily study goal! </p>
+{/if}
+
+<p> Total study time: {formatStudyTime(totalStudyTime)} </p>
+</main>
+
+<style>
+    label,
+    input,
+    button {
+        text-align: center;
+        margin: 0 auto;
+        display: block;
+    }
+</style>
