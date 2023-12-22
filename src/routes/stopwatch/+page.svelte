@@ -11,11 +11,10 @@
         if (isRunning) {
             clearInterval(stopwatch);
             isRunning = false;
-            totalStudyTime += elapsedSeconds;
-            localStorage.setItem('totalStudyTime', totalStudyTime);
     } else {
         stopwatch = setInterval(() => {
             elapsedSeconds++;
+            formattedTime = formattedElapsed(elapsedSeconds);
             }, 1000);
             isRunning = true;
     }
@@ -26,7 +25,8 @@ function resetStopwatch() {
     const confirmation = confirm("Do you want to save your stopwatch data before resetting?");
 
     if (confirmation) {
-    localStorage.setItem('stopwatchData', elapsedSeconds);
+    const storedTime = parseInt(localStorage.getItem('elapsedTime')||'0', 10);
+    localStorage.setItem('elapsedTime', storedTime + parseInt(elapsedSeconds, 10));
     }
     clearInterval(stopwatch);
     elapsedSeconds = 0;
