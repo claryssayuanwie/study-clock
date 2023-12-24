@@ -27,12 +27,16 @@
         secondsRemaining--; // decrements remaining time
         if (secondsRemaining === 0){
             clearInterval(timer);
-            totalStudyTime += elapsedSeconds; 
+            totalStudyTime += totalSeconds; 
         }
 
         // store elapsed time in local storage
-        localStorage.getItem('elapsedTime', totalSeconds - secondsRemaining);
+        localStorage.setItem('totalStudyTime', totalStudyTime);
        }
+
+       localStorage.setItem('remainingTime', secondsRemaining);
+
+
        // set timer
        timer = setInterval(handleTimer, 1000);
        isTimerRunning = true;
@@ -66,9 +70,10 @@ function resetTimer(){
 // lifecycle hook - runs when component is mounted
 onMount(() => {
     // get elapsed time from local storage on mount
-    const storedElapsedTime = localStorage.getItem('elapsedTime');
-    if (storedElapsedTime) {
-        const elapsedTime = parseInt(storedElapsedTime, 10);
+    const storedTotalStudyTime = localStorage.getItem('totalStudyTime');
+    if (storedTotalStudyTime) {
+        totalStudyTime = parseInt(storedTotalStudyTime, 10);
+        const elapsedTime = parseInt(localStorage.getItem('remainingTime'), 10);
         secondsRemaining = totalSeconds - elapsedTime;
         if (secondsRemaining <= 0) {
             secondsRemaining = 0;

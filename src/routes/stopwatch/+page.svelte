@@ -1,8 +1,6 @@
 <script>
     import {onMount, onDestroy} from 'svelte';
 
-    export let totalStudyTime = 0;
-
     let elapsedSeconds = 0;
     let stopwatch;
     let isRunning = false;

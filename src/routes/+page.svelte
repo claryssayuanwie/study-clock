@@ -4,7 +4,11 @@
     let totalStudyTime = 0;
     let goalHours = 0;
     let goalMinutes = 0;
+
     let completed = false;
+
+    let minutesInput = 0;
+    let hoursInput = 0;
 
     function calculateCompletion(time, goal) {
         completed = time >= goal;
@@ -13,6 +17,7 @@
     function setGoal() {
         const totalGoalMinutes = goalHours * 60 + goalMinutes;
         localStorage.setItem('dailyStudyGoal', totalGoalMinutes);
+        totalStudyTime = parseInt(localStorage.getItem('totalStudyTime') || '0', 10) + parseInt(localStorage.getItem('elapsedTime') || '0', 10);
         calculateCompletion(totalStudyTime, totalGoalMinutes);
     }
 
@@ -42,14 +47,14 @@
 <main>
 <h1>Hello!</h1>
 <p>Welcome to studyclock! Start a study session! </p>
-<p>Set your daily goal!</p>
+<p>Set your daily goal!</p> 
 
 <!-- Input for hours and minutes -->
 <label for="hoursInput">Hours</label>
-<input type="number" id="hoursInput" bind:value={goalHours} min="0">
+<input type="number" id="hoursInput" bind:value={goalHours} bind:this={hoursInput} min="0">
 
 <label for="minutesInput">Minutes</label>
-<input type="number" id="minutesInput" bind:value={goalMinutes} min="0" max="59">
+<input type="number" id="minutesInput" bind:value={goalMinutes} bind:this={minutesInput} min="0" max="59">
 
 <!-- Button to update the daily goal -->
 <button on:click={setGoal}>Set Goal</button>
