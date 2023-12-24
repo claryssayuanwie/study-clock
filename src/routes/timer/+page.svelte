@@ -52,16 +52,28 @@ function resetTimer(){
     const confirmation = confirm("Do you want to save your progress before resetting?");
 
     if (confirmation) {
-        // save to local storage
-        localStorage.setItem('elapsedTime', totalSeconds - secondsRemaining);
+        const progressMade = totalSeconds - secondsRemaining;
+        // update total study time
+        totalStudyTime += progressMade;
+        // save remaining time to local storage
+        localStorage.setItem('remainingTime', secondsRemaining);
+        localStorage.setItem('totalStudyTime', totalStudyTime);
     } else {
         // clear fron local storage
-        localStorage.removeItem('elapsedTime');
+        localStorage.removeItem('remainingTime');
+        localStorage.removeItem('totalStudyTime');
     }
 
     clearInterval(timer);
     isTimerRunning = false;
-    secondsRemaining = 0;
+
+    const storedRemainingTime = localStorage.getItem('remainingTime');
+    if (storedRemainingTime) {
+        secondsRemaining = parseInt(storedRemainingTime, 10);
+    } else {
+        secondsRemaining = 0;
+    }
+    
     // Reset user input = to 0
     minutesInput = 0;
     secondsInput = 0;
