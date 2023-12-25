@@ -19,6 +19,7 @@
         localStorage.setItem('dailyStudyGoal', totalGoalMinutes);
         totalStudyTime = parseInt(localStorage.getItem('totalStudyTime') || '0', 10) + parseInt(localStorage.getItem('elapsedTime') || '0', 10);
         calculateCompletion(totalStudyTime, totalGoalMinutes);
+        
     }
 
     function formatStudyTime(seconds) {
@@ -47,7 +48,7 @@
 <main>
 <h1>Hello!</h1>
 <p>Welcome to studyclock! Start a study session! </p>
-<p>Set your daily goal!</p> 
+<p>Set your daily goal! {goalHours} hr {goalMinutes} min </p> 
 
 <!-- Input for hours and minutes -->
 <label for="hoursInput">Hours</label>
