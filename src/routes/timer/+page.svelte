@@ -52,9 +52,6 @@ function resetTimer(){
     const confirmation = confirm("Do you want to save your progress before resetting?");
 
     if (confirmation) {
-        const progressMade = totalSeconds - secondsRemaining;
-        // update total study time
-        totalStudyTime += progressMade;
         // save remaining time to local storage
         localStorage.setItem('remainingTime', secondsRemaining);
         localStorage.setItem('totalStudyTime', totalStudyTime);
