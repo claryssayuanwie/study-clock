@@ -11,7 +11,8 @@
     let hoursInput = 0;
 
     function calculateCompletion(time, goal) {
-        completed = time >= goal;
+        const totalTimeMinutes = time / 60;
+        completed = totalTimeMinutes >= goal;
     }
 
     function setGoal() {
