@@ -28,14 +28,11 @@
         if (secondsRemaining === 0){
             clearInterval(timer);
             totalStudyTime += totalSeconds; 
-        }
-
         // store elapsed time in local storage
         localStorage.setItem('totalStudyTime', totalStudyTime);
        }
-
        localStorage.setItem('remainingTime', secondsRemaining);
-
+    }
 
        // set timer
        timer = setInterval(handleTimer, 1000);
@@ -44,6 +41,11 @@
     } else {
         clearInterval(timer);
         isTimerRunning = false;
+// if timer is paused, update local study time to storage
+        if (secondsRemaining > 0) {
+            totalStudyTime += totalSeconds - secondsRemaining;
+            localStorage.setItem('totalStudyTime', totalStudyTime);
+        }
     }
 }
 
