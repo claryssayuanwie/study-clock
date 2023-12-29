@@ -18,6 +18,8 @@
     function setGoal() {
         const totalGoalMinutes = goalHours * 60 + goalMinutes;
         localStorage.setItem('dailyStudyGoal', totalGoalMinutes);
+        localStorage.setItem('goalHours', goalHours);
+        localStorage.setItem('goalMinutes', goalMinutes);
         totalStudyTime = parseInt(localStorage.getItem('totalStudyTime') || '0', 10) + parseInt(localStorage.getItem('elapsedTime') || '0', 10);
         calculateCompletion(totalStudyTime, totalGoalMinutes);
         
@@ -39,6 +41,9 @@
     }
 
     onMount (() => {
+        goalHours = parseInt(localStorage.getItem('goalHours', goalHours) || '0', 10);
+        goalMinutes = parseInt(localStorage.getItem('goalMinutes', goalMinutes) || '0', 10);
+
         const studyTime = parseInt(localStorage.getItem('totalStudyTime') || '0', 10) + parseInt(localStorage.getItem('elapsedTime') || '0', 10);
         totalStudyTime = studyTime;
         setGoal();
