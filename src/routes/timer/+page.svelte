@@ -39,13 +39,9 @@
        isTimerRunning = true;
 
     } else {
+        // stop timer
         clearInterval(timer);
         isTimerRunning = false;
-// if timer is paused, update local study time to storage
-        if (secondsRemaining > 0) {
-            totalStudyTime += totalSeconds - secondsRemaining;
-            localStorage.setItem('totalStudyTime', totalStudyTime);
-        }
     }
 }
 
@@ -54,9 +50,10 @@ function resetTimer(){
     const confirmation = confirm("Do you want to save your progress before resetting?");
 
     if (confirmation) {
-        // save remaining time to local storage
-        localStorage.setItem('remainingTime', secondsRemaining);
+        // update totalStudyTime if confirmed
+        totalStudyTime += totalSeconds - secondsRemaining;
         localStorage.setItem('totalStudyTime', totalStudyTime);
+        localStorage.setItem('remainingTime', secondsRemaining);
     } else {
         // clear fron local storage
         localStorage.removeItem('remainingTime');
