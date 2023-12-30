@@ -52,9 +52,9 @@
 </script>
 
 <main>
-<h1>Hello!</h1>
-<p>Welcome to studyclock! Start a study session! </p>
-<p>Set your daily goal! {goalHours} hr {goalMinutes} min </p> 
+<h1><b>Welcome to studyclock!</b></h1>
+<h3> Start a study session! </h3>
+<p>Set your daily goal! <b> {goalHours} hr {goalMinutes} min </b></p> 
 
 <!-- Input for hours and minutes -->
 <label for="hoursInput">Hours</label>
@@ -67,18 +67,31 @@
 <button on:click={setGoal}>Set Goal</button>
 
 {#if completed}
-<p>Great job! You completed your daily study goal! </p>
+<p>Great job! You completed your daily study goal! 🥳</p>
 {/if}
 
-<p> Total study time: {formatStudyTime(totalStudyTime)} </p>
+<p> Total study time: <b>{formatStudyTime(totalStudyTime)}</b> </p>
 </main>
 
 <style>
+    main {
+        text-align: center;
+    }
+
     label,
     input,
     button {
-        text-align: center;
-        margin: 0 auto;
         display: block;
+        margin: 8px auto;
+        text-align: center;
+        width: fit-content;
+    }
+
+    input {
+        margin-bottom: 16px;
+    }
+
+    button {
+        margin-top: 16px;
     }
 </style>

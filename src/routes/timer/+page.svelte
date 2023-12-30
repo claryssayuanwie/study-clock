@@ -54,6 +54,10 @@ function resetTimer(){
         totalStudyTime += totalSeconds - secondsRemaining;
         localStorage.setItem('totalStudyTime', totalStudyTime);
         localStorage.setItem('remainingTime', secondsRemaining);
+
+        minutesInput = 0;
+        secondsInput = 0;
+
     } else {
         // clear fron local storage
         localStorage.removeItem('remainingTime');
@@ -113,6 +117,7 @@ label, input {
     display: block;
     margin: 0 auto;
     text-align: center;
+    margin-bottom: 10px;
 }
 
 .button-container {
@@ -120,6 +125,11 @@ label, input {
     justify-content: center;
     gap: 10px; 
     margin-top: 20px; 
+}
+
+div p {
+    text-align: center;
+    margin-top: 20px;
 }
 
 </style>
@@ -158,6 +168,6 @@ label, input {
     {#if secondsRemaining === 0 && isTimerRunning}
         <p>Time's up! Take a break.</p>
     {:else}
-        <p>Time left: {formattedTime}</p>
+        <p>Time left: <b>{formattedTime}</b></p>
     {/if}
 </div>

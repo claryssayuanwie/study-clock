@@ -56,7 +56,7 @@ function formattedElapsed(seconds){
 <h1>Set a stopwatch!</h1>
 <p>Study for as long as you'd like.</p>
 <p> 
-    Time elapsed: {formattedTime}
+    Time elapsed: <b> {formattedTime} </b>
 </p>
 
 <div class="button-container">
