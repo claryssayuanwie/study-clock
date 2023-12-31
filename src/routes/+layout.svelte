@@ -1,5 +1,6 @@
 <nav>
 	<img src="studyclockpng.png" alt="Navbar Image" height="30">
+    <a href="/login">login</a>
     <a href="/">home</a>
 	<a href="/timer">timer</a>
     <a href="/stopwatch">stopwatch</a>
