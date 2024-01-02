@@ -11,7 +11,7 @@
             password: password
         }); 
         if (user) {
-goto("/");
+            goto('/');
         } else {
     console.error(error);
 }
@@ -30,7 +30,7 @@ function handleSubmit(event) {
     <form class="loginForm" on:submit={handleSubmit}>
         <input type="email" bind:value={email} placeholder="email@email.com"/>
         <input type="password" bind:value={password} placeholder="Password"/>
-        <button type="submit">Login</button>
+        <button on:click={handleLogin}>Login</button>
     </form>
     <a href="/signup">Not a member? Sign up!</a>
 </div>

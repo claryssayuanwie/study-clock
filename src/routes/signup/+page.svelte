@@ -11,7 +11,7 @@
             password: password
         }); 
         if (user) {
-            goto("/");
+            goto('/');
         } else {
     console.error(error);
 }
